@@ -10,17 +10,28 @@ namespace Task3
 	{
 		static void Main(string[] args)
 		{
-			string line1 = Console.ReadLine(); // creating 2 lines
-			string line2 = Console.ReadLine();
-			int n = int.Parse(line1); // by Parse convert string (line1)into int n
-			string[] parts = line2.Split(' ');// creating an array ; each element is divided by backspace
+			int n = int.Parse(Console.ReadLine()); // size of array
+			string parts = Console.ReadLine(); 
 
-			for (int i = 0; i < n; ++i)
+			string[] parts1 = new string[n]; // creating array of string
+			parts1 = parts.Split(); // divide array by space
+			int[] arr = new int[n]; // creating array of integers with n elements
+			int[] arr2 = new int[n * 2]; // creating another array of integers with double n elements
+
+			for (int i=0;i<n;i++)
 			{
-				Console.Write(parts[i] + " " + parts[i]);
-				Console.Write(" ");
+				arr[i] = int.Parse(parts1[i]); // converting string line written by keyboard to integer
 			}
-
+			for (int i=0;i<n;i++)
+			{
+				arr2[i * 2] = arr[i];
+				arr2[i * 2 + 1] = arr[i];
+			}
+			for (int i = 0; i < arr2.Length; i++)
+			{
+				Console.Write(arr2[i] + " ");
+			}
+			Console.ReadKey();
 		}
 	}
 }
