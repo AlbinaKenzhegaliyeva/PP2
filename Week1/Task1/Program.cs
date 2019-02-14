@@ -31,7 +31,7 @@ namespace Task1
 		}
 		static void Main(string[] args)
 		{
-			int n = int.Parse(Console.ReadLine()); // creating variable to int
+			int n = int.Parse(Console.ReadLine()); // creating variable to int 
 			string s = Console.ReadLine(); // write numbers to string
 			string[] array = s.Split(); // creating a new array and divide the numbers by parts
 			int cnt = 0; // new variable

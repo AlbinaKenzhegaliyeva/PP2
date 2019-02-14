@@ -13,10 +13,10 @@ namespace Task4
 			int st = int.Parse(Console.ReadLine()); // converting line written by keyboard to integer
 			int[,] star = new int[st, st]; // creating 2d array
 
-			for (int i = 1; i <= st; i++)
+			for (int i = 1; i <= st; i++)// обход строки
 
 			{
-				for (int j = 1; j <= i; j++)
+				for (int j = 1; j <= i; j++) // обход ячеек в этой строке
 
 
 					Console.Write("[*]");
