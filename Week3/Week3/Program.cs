@@ -9,123 +9,103 @@ using System.Threading.Tasks;
 namespace Task1
 
 {
-	class FarManager
+	class FarManager // создаём класс 
 	{
-		public int cursor;
+		public int kursor;
 		public string path;
-		public int sz;
-		public bool ok;
+		public int size;
+		//public bool ok;
 		DirectoryInfo directory = null;
 		FileSystemInfo currentFs = null;
 
-		public FarManager()
+		public FarManager() // конструктор
 		{
-			cursor = 0;
+			kursor = 0; // указывает на нулевой индекс
 		}
 
-		public FarManager(string path)
+		public FarManager(string path) // создаём конструктор и передаем наш путь
 		{
 			this.path = path;
-			cursor = 0;
+			kursor = 0;
 			directory = new DirectoryInfo(path);
-			sz = directory.GetFileSystemInfos().Length;
-			ok = true;
+			size = directory.GetFileSystemInfos().Length; //внутри size сохранили все папки и файлы
+			//ok = true;
 		}
 
-		public void Color(FileSystemInfo fs, int index)
+		public void Color(FileSystemInfo fs, int placeofkur) // создаём функцию, где передаем индекс курсора
 		{
-			if (cursor == index)
+			if (kursor == placeofkur)
 			{
 				Console.BackgroundColor = ConsoleColor.White;
 				Console.ForegroundColor = ConsoleColor.Black;
 				currentFs = fs;
 			}
-			else if (fs.GetType() == typeof(DirectoryInfo))
+			else if (fs.GetType() == typeof(DirectoryInfo)) // проверяем является ли экземпляр директорием 
 			{
-				Console.BackgroundColor = ConsoleColor.Gray;
+				Console.BackgroundColor = ConsoleColor.Gray; //цвет
 				Console.ForegroundColor = ConsoleColor.Red;
 			}
-			else
+			else // случай, когда имеем дело с файлсистеминфо
 			{
 				Console.BackgroundColor = ConsoleColor.Blue;
 				Console.ForegroundColor = ConsoleColor.Yellow;
 			}
 		}
 
-		public void Show()
+		public void Show() // создаём функцию
 		{
-			Console.BackgroundColor = ConsoleColor.Black;
+			Console.BackgroundColor = ConsoleColor.Black; // закрашиваем в черный
 			Console.Clear();
 			directory = new DirectoryInfo(path);
-			FileSystemInfo[] fs = directory.GetFileSystemInfos();
-			for (int i = 0, k = 0; i < fs.Length; i++)
+			FileSystemInfo[] fs = directory.GetFileSystemInfos(); // с помощью гетфайлсистеминфо получаем все файлы и директории
+			for (int i = 0; i < fs.Length; i++) // пробегаемся по всем файлам и папкам
 			{
-				if (ok == false && fs[i].Name[0] == '.')
-				{
-					continue;
-				}
-				Color(fs[i], k);
+				//if (ok == false && fs[i].Name[0] == '.')
+				//{
+					//continue;
+				//}
+				Color(fs[i], i); // i элемент передаем в калор
 				Console.WriteLine(fs[i].Name);
-				k++;
+				
 			}
 		}
-		public void Up()
+		public void Up() // управление курсорами 
 		{
-			cursor--;
-			if (cursor < 0)
-				cursor = sz - 1;
+			kursor--;
+			if (kursor < 0)
+				kursor = size - 1; // уходит вниз если ушел наверх (-1)
 		}
 		public void Down()
 		{
-			cursor++;
-			if (cursor == sz)
-				cursor = 0;
-		}
-
-		public void CalcSz()
-		{
-			directory = new DirectoryInfo(path);
-			FileSystemInfo[] fs = directory.GetFileSystemInfos();
-			sz = fs.Length;
-			if (ok == false)
-				for (int i = 0; i < fs.Length; i++)
-					if (fs[i].Name[0] == '.')
-						sz--;
+			kursor++;
+			if (kursor == size)
+				kursor = 0; // уходит наверх 
 		}
 
 		public void Start()
 		{
 			ConsoleKeyInfo consoleKey = Console.ReadKey();
-			while (consoleKey.Key != ConsoleKey.Escape)
+			while (consoleKey.Key != ConsoleKey.Escape) // пока esc не нажмется while будет повторяться 
 			{
-				CalcSz();
-				Show();
+				
+				Show(); // показываем, что нах-ся в папке
 				consoleKey = Console.ReadKey();
 				if (consoleKey.Key == ConsoleKey.UpArrow)
 					Up();
 				if (consoleKey.Key == ConsoleKey.DownArrow)
 					Down();
-				if (consoleKey.Key == ConsoleKey.RightArrow)
-				{
-					ok = false;
-					cursor = 0;
-				}
-				if (consoleKey.Key == ConsoleKey.LeftArrow)
-				{
-					cursor = 0;
-					ok = true;
-				}
+				
 				if (consoleKey.Key == ConsoleKey.Enter)
 				{
 					if (currentFs.GetType() == typeof(DirectoryInfo))
 					{
-						cursor = 0;
+						kursor = 0;
 						path = currentFs.FullName;
 					}
 				}
 				if (consoleKey.Key == ConsoleKey.Backspace)
 				{
-					cursor = 0;
+					kursor = 0;
 					path = directory.Parent.FullName;
 				}
 			}
@@ -138,7 +118,7 @@ namespace Task1
 		static void Main(string[] args)
 		{
 			string path = (@"C:\Users\User\Desktop\Programming");
-			FarManager farManager = new FarManager(path);
+			FarManager farManager = new FarManager(path); // передаём путь в FarManager
 			farManager.Start();
 		}
 	}
