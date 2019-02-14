@@ -28,8 +28,8 @@ namespace Task2
 		}
 		static void Main(string[] args)
 		{
-			Student s = new Student("Kenzhegaliyeva", "18BD12067"); //????
-			s.PrintInfo();
+			Student s = new Student("Kenzhegaliyeva", "18BD12067"); // method
+			s.PrintInfo(); 
 			s.Inc();
 			Console.ReadLine();
 		}
