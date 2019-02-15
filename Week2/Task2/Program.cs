@@ -60,7 +60,7 @@ namespace Task2
 			FileStream fs2 = new FileStream(@"C:\Users\User\Desktop\PP2\blok\output.txt", FileMode.Create, FileAccess.Write); 
 			StreamWriter sw = new StreamWriter(fs2); 
 
-			foreach (var x in res)
+			foreach (var x in res) 
 			{
 				sw.Write(x + " ");
 				Console.Write(x + " "); 

@@ -18,7 +18,7 @@ namespace Task1
 			fs.Close();
 			for (int i = 0; i < str.Length / 2; i++) //go through the array
 			{
-				if (str[i] != str[str.Length - i - 1]) // comparing the 1st and 
+				if (str[i] != str[str.Length - i - 1]) // если зеркальные элементы не равны
 				{
 					Console.WriteLine("No");
 					break;
