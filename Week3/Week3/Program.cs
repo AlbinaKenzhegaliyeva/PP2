@@ -58,7 +58,7 @@ namespace Task1
 			for (int i = 0; i < fs.Length; i++) // пробегаемся по всем файлам и папкам
 			{
 				Color(fs[i], i); // i элемент передаем в калор
-				Console.WriteLine(i+1+ "."+fs[i].Name);
+				Console.WriteLine(i+1+ "."+fs[i].Name);// нумерации и названия
 			}
 		}
 
@@ -73,6 +73,12 @@ namespace Task1
 			kursor++;
 			if (kursor == size)
 				kursor = 0; // уходит наверх 
+		}
+
+		public static string ExtractFolderFromPath(string fileName, string pathSeparator, bool includeSeparatorAtEnd)
+		{
+			int pos = fileName.LastIndexOf(pathSeparator);
+			return fileName.Substring(0, (includeSeparatorAtEnd ? pos + 1 : pos));
 		}
 
 		public void Start() 
@@ -122,7 +128,18 @@ namespace Task1
 				}
 				if (consoleKey.Key == ConsoleKey.LeftArrow)
 				{
-					File.Move(currentFs.FullName, Console.ReadLine());
+					//Console.WriteLine(currentFs.FullName);
+					//Console.WriteLine(ExtractFolderFromPath(currentFs.FullName, @"\", false));
+					//string papka = ExtractFolderFromPath(currentFs.FullName, @"\", false);
+					//Console.ReadKey();
+					//string Behemot = Console.ReadLine();
+					//string AlbinaRetake = Path.Combine(ExtractFolderFromPath(currentFs.FullName, @"\", false), Behemot);
+					//Console.WriteLine(AlbinaRetake);
+					//Console.ReadKey();
+					//File.Move(currentFs.FullName, AlbinaRetake);
+					string word = Console.ReadLine();
+					File.Move(currentFs.Name, word );
+					Console.ReadKey();
 				}
 				if (consoleKey.Key == ConsoleKey.Backspace)
 				{
@@ -140,6 +157,14 @@ namespace Task1
 			string path = (@"C:\Users\User\Desktop\Programming");
 			FarManager farManager = new FarManager(path); // передаём путь в FarManager
 			farManager.Start();
+			StreamReader sr = new StreamReader(@"C:\Users\User\Desktop\Programming");
+			string s;
+			while (sr.EndOfStream!= true)
+			{
+				s = sr.ReadLine();
+				Console.WriteLine(s);
+			}
+			sr.Close();
 		}
 	}
 }
